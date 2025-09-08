@@ -11,7 +11,7 @@ export default function ProductDetailScreen() {
 
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
-       <Image source={product.image} style={{ width: '100%', height: 260, borderRadius: 14 }} />
+      <Image source ={product.image} style={{ width: '100%', height: 260, borderRadius: 14 }} />
       <Text style={{ fontSize: 22, fontWeight: '700', marginTop: 12 }}>{product.name}</Text>
       <Text style={{ color: '#2e7d32', fontSize: 18, fontWeight: '700' }}>{vnd(product.price)}</Text>
       <Text style={{ marginVertical: 10, lineHeight: 20 }}>

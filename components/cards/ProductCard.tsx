@@ -7,7 +7,7 @@ import colors from '../../constants/colors';
 export default function ProductCard({ item, onPress }:{ item: Plant; onPress?: () => void }) {
   return (
     <Pressable onPress={onPress} style={s.card}>
-      <Image source={{ uri: item.image }} style={s.img} />
+      <Image source={ item.image } style={s.img} />
       <Text style={s.name} numberOfLines={1}>{item.name}</Text>
       <Text style={s.price}>{vnd(item.price)}</Text>
     </Pressable>
