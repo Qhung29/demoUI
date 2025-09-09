@@ -43,43 +43,48 @@ export default function LoginScreen() {
 
           {/* ====== FORM ====== */}
           <View style={s.card}>
-            <Text style={s.label}>Email</Text>
-            <View style={s.inputRow}>
-              <MaterialIcons name="person" size={20} color="#6b7280" />
-              <TextInput
-                placeholder="you@example.com"
-                autoCapitalize="none"
-                style={s.input}
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
+          <Text style={s.label}>Email</Text>
+          <View style={s.inputRow}>
+          <MaterialIcons name="person" size={20} color="#6b7280" />
+          <TextInput
+              placeholder="you@example.com"
+              autoCapitalize="none"
+              style={s.input}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+           />
+         </View>
 
-            <Text style={s.label}>Mật khẩu</Text>
-            <View style={s.inputRow}>
-              <MaterialIcons name="lock-outline" size={20} color="#6b7280" />
-              <TextInput
-                placeholder="••••••••"
-                secureTextEntry={!showPass}
-                style={s.input}
-                value={pass}
-                onChangeText={setPass}
-              />
-              <Pressable onPress={() => setShowPass(v => !v)}>
-                <MaterialIcons name={showPass ? 'visibility' : 'visibility-off'} size={20} color="#6b7280" />
-              </Pressable>
-            </View>
+         <Text style={s.label}>Mật khẩu</Text>
+         <View style={s.inputRow}>
+         <MaterialIcons name="lock-outline" size={20} color="#6b7280" />
+         <TextInput
+              placeholder="••••••••"
+              secureTextEntry={!showPass}
+              style={s.input}
+              value={pass}
+              onChangeText={setPass}
+          />
+         <Pressable onPress={() => setShowPass(v => !v)}>
+         <MaterialIcons name={showPass ? 'visibility' : 'visibility-off'} size={20} color="#6b7280" />
+        </Pressable>
+     </View>
 
-            <Pressable onPress={onLogin} style={s.loginBtn}>
-              <Text style={s.loginText}>Đăng nhập</Text>
-            </Pressable>
-            
+        <Pressable onPress={onLogin} style={s.loginBtn}>
+        <Text style={s.loginText}>Đăng nhập</Text>
+        </Pressable>
 
-            <View style={s.linkRow}>
-              <Pressable><Text style={s.link}>Quên mật khẩu?</Text></Pressable>
-              <Pressable><Text style={s.link}>Tạo tài khoản</Text></Pressable>
-            </View>
-          </View>
+  
+        <Pressable onPress={() => nav.navigate('AuthGateway')} style={s.altGateway}>
+        <Text style={s.altGatewayText}>Thử qua AuthGateway</Text>
+        </Pressable>
+
+        <View style={s.linkRow}>
+        <Pressable><Text style={s.link}>Quên mật khẩu?</Text></Pressable>
+        <Pressable><Text style={s.link}>Tạo tài khoản</Text></Pressable>
+      </View>
+   </View>
 
           {/* Logo minh họa */}
           <View style={s.scrollableLogo}>
@@ -89,11 +94,6 @@ export default function LoginScreen() {
               resizeMode="contain"
             />
           </View>
-
-          {/* Link phụ */}
-          <Pressable onPress={() => nav.navigate('AuthGateway')} style={{ marginTop: 16 }}>
-            <Text style={{ color: '#4b5563', textAlign: 'center' }}>Thử qua AuthGateway</Text>
-          </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -154,4 +154,15 @@ const s = StyleSheet.create({
     backgroundColor: '#f6f7fb', // Đảm bảo background trùng với container
     zIndex: 1, // Đảm bảo footer nằm trên các thành phần khác nếu có
   },
+
+  altGateway: {
+  alignSelf: 'center',
+  marginTop: 10,
+},
+
+  altGatewayText: {
+  color: '#40916c',
+  fontWeight: '500',
+},
+
 });
