@@ -6,10 +6,10 @@ export default function ToastDemo() {
   return (
     <View style={{ flex:1, alignItems:'center', justifyContent:'center', gap:10 }}>
       <Pressable onPress={()=>Toast.show({ type:'success', text1:'Thành công', text2:'Đã thêm vào giỏ' })}>
-        <Text> thành công</Text>
+        <Text> Thành công</Text>
       </Pressable>
       <Pressable onPress={()=>Toast.show({ type:'error', text1:'Lỗi', text2:'Vui lòng thử lại' })}>
-        <Text> lỗi</Text>
+        <Text> Thất bại</Text>
       </Pressable>
     </View>
   );

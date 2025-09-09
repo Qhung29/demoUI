@@ -110,7 +110,7 @@ const s = StyleSheet.create({
   content: {
     paddingHorizontal: 24,
     paddingTop: 100,
-    paddingBottom: 200, // Tăng paddingBottom để đảm bảo toàn bộ nội dung cuộn lên trên bàn phím
+    paddingBottom: 200, 
   },
   // --- TOP ---
   top: { alignItems: 'center', marginTop: 8, marginBottom: 12 },

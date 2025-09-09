@@ -8,11 +8,12 @@ import {
   Pressable,
   Linking,
   Alert,
+  Image,
+  Dimensions,
 } from "react-native";
-
-// ✅ Dùng SafeAreaView & hook từ react-native-safe-area-context
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const SHOP_NAME = "GreenShop";
 const ADDRESS = "123 Hoa Lan, Q.Phú Nhuận, TP.HCM";
@@ -22,6 +23,10 @@ const CLOSE_HOUR = 21;
 
 export default function ShopInfoScreen() {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<any>();
+  const screenW = Dimensions.get("window").width;
+  // Responsive: 24px padding 2 bên, tối đa 440 cho tablet nhỏ, không bó cứng 420
+  const cardMaxW = Math.min(440, screenW - 24 * 2);
 
   const openNow = useMemo(() => {
     const h = new Date().getHours();
@@ -35,11 +40,11 @@ export default function ShopInfoScreen() {
         ADDRESS
       )}`
     );
-  const onShare = () =>
-    Alert.alert("Giới thiệu", "Chuyên cây nội thất, xương rồng, sen đá…");
+  const onShare = () => {
+  navigation.navigate("Danh mục");   // 👈 trỏ đến tab Danh mục
+  };
 
   return (
-    // ✅ edges chỉ có tác dụng với SafeAreaView của safe-area-context
     <SafeAreaView
       style={[s.container, { paddingTop: insets.top }]}
       edges={["top", "left", "right"]}
@@ -47,21 +52,23 @@ export default function ShopInfoScreen() {
       <ScrollView
         contentContainerStyle={[
           s.content,
-          { paddingBottom: 32 + insets.bottom }, // chừa đáy theo máy/tab bar
+          { paddingBottom: 32 + insets.bottom },
         ]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
         {/* Header */}
-        <View style={s.header}>
-          <View style={s.logoCircle}>
-            <Ionicons name="leaf" size={28} color="#2e7d32" />
-          </View>
+        <View style={[s.header, { maxWidth: cardMaxW }]}>
+          <Image
+            source={require("../../assets/logotree2-Photoroom.png")}
+            style={s.brandLogo}
+            resizeMode="contain"
+          />
           <Text style={s.title}>{SHOP_NAME}</Text>
           <Text style={s.caption}>Chuyên cây nội thất, xương rồng, sen đá…</Text>
 
           {/* Chips */}
-          <View style={s.chipRow}>
+          <View style={[s.chipRow, { maxWidth: cardMaxW }]}>
             <View style={s.chip}>
               <MaterialIcons name="support-agent" size={16} color="#2e7d32" />
               <Text style={s.chipTxt}>Tư vấn miễn phí</Text>
@@ -78,7 +85,7 @@ export default function ShopInfoScreen() {
         </View>
 
         {/* Card: Thông tin chính */}
-        <View style={s.card}>
+        <View style={[s.card, { maxWidth: cardMaxW, alignSelf: "center" }]}>
           {/* Địa chỉ */}
           <View style={s.row}>
             <MaterialIcons name="location-on" size={22} color="#256d3a" />
@@ -131,7 +138,7 @@ export default function ShopInfoScreen() {
               <Text style={s.rowTitle}>Hotline</Text>
               <Text style={s.rowDesc}>{HOTLINE}</Text>
             </View>
-            <Pressable onPress={onCall} style={[s.rowBtn, { backgroundColor: "#2e7d32" }]}>
+            <Pressable onPress={onCall} style={[s.rowBtn, s.rowBtnPrimary]}>
               <MaterialIcons name="phone" size={18} color="#fff" />
               <Text style={s.rowBtnTxt}>Gọi</Text>
             </Pressable>
@@ -139,12 +146,12 @@ export default function ShopInfoScreen() {
         </View>
 
         {/* Card: Giới thiệu */}
-        <View style={s.card}>
+        <View style={[s.card, { maxWidth: cardMaxW, alignSelf: "center" }]}>
           <Text style={s.sectionTitle}>Giới thiệu</Text>
           <Text style={s.intro}>
-            Chúng tôi cung cấp đa dạng cây nội thất, sen đá, xương rồng, phụ kiện
-            chăm sóc. Chính sách tư vấn chọn cây theo ánh sáng - diện tích phòng,
-            bảo hành đổi cây trong 7 ngày.
+            Chúng tôi cung cấp đa dạng cây nội thất, sen đá, xương rồng, phụ
+            kiện chăm sóc. Chính sách tư vấn chọn cây theo ánh sáng - diện tích
+            phòng, bảo hành đổi cây trong 7 ngày.
           </Text>
 
           <View style={s.actionRow}>
@@ -156,7 +163,7 @@ export default function ShopInfoScreen() {
         </View>
 
         {/* Map placeholder */}
-        <View style={s.mapCard}>
+        <View style={[s.mapCard, { maxWidth: cardMaxW, alignSelf: "center" }]}>
           <MaterialIcons name="map" size={22} color="#256d3a" />
           <Text style={{ marginLeft: 8, color: "#256d3a", fontWeight: "700" }}>
             Xem vị trí trên bản đồ
@@ -173,36 +180,35 @@ export default function ShopInfoScreen() {
   );
 }
 
-const CARD_MAX_W = 420;
-
 const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f6f7fb" },
-  content: { padding: 16, alignItems: "center" },
+  content: {
+    paddingHorizontal: 24,     // 24 cho cân lề
+    paddingTop: 8,
+    alignItems: "center",
+    rowGap: 12 as any,         // RN mới hỗ trợ, nếu cũ bỏ dòng này
+  },
 
+  // Header
   header: {
     width: "100%",
-    maxWidth: CARD_MAX_W,
     alignItems: "center",
-    marginBottom: 8,
+    marginBottom: 6,
   },
-  logoCircle: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "#e9f5ee",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 8,
-  },
+  brandLogo: { width: 84, height: 84, marginBottom: 8 },
   title: { fontSize: 22, fontWeight: "800", color: "#1b4332" },
   caption: { color: "#4b8264", marginTop: 4, textAlign: "center" },
 
+  // Chips
   chipRow: {
+    width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     marginTop: 10,
+    marginHorizontal: -4, // tạo gutter đều
   },
+
   chip: {
     flexDirection: "row",
     alignItems: "center",
@@ -210,25 +216,30 @@ const s = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 999,
-    marginRight: 8,
+    marginHorizontal: 4,
     marginBottom: 8,
   },
   chipTxt: { marginLeft: 6, color: "#256d3a", fontWeight: "600" },
 
+  // Card
   card: {
     width: "100%",
-    maxWidth: CARD_MAX_W,
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 16,
-    marginTop: 12,
+    marginTop: 10,
+    // viền rất nhẹ giúp tách nền xám
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#E9EEF3",
+    // đổ bóng 
     shadowColor: "#000",
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 2,
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 1,
   },
 
+  // Rows in card
   row: { flexDirection: "row", alignItems: "center" },
   rowBody: { flex: 1, marginLeft: 10 },
   rowTitle: { fontWeight: "700", color: "#111827" },
@@ -238,11 +249,11 @@ const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#2e7d32",
-    paddingHorizontal: 10,
-    height: 36,
-    borderRadius: 10,
-    marginLeft: 8,
+    paddingHorizontal: 12,
+    height: 40,                 
+    borderRadius: 12,
   },
+  rowBtnPrimary: { backgroundColor: "#2e7d32" },
   rowBtnTxt: { color: "#fff", fontWeight: "700", marginLeft: 6 },
 
   badge: {
@@ -256,7 +267,7 @@ const s = StyleSheet.create({
   },
   dot: { width: 8, height: 8, borderRadius: 4, marginRight: 6 },
 
-  divider: { height: 1, backgroundColor: "#f1f5f9", marginVertical: 12 },
+  divider: { height: 1, backgroundColor: "#EEF2F6", marginVertical: 12 },
 
   sectionTitle: { fontWeight: "800", color: "#1b4332", fontSize: 16 },
   intro: { color: "#374151", marginTop: 8, lineHeight: 20 },
@@ -274,19 +285,20 @@ const s = StyleSheet.create({
 
   mapCard: {
     width: "100%",
-    maxWidth: CARD_MAX_W,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 16,
-    marginTop: 12,
+    marginTop: 10,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#E9EEF3",
     shadowColor: "#000",
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 2,
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 1,
   },
 
-  copy: { marginTop: 16, color: "#9aa3af" },
+  copy: { marginTop: 16, color: "#9aa3af", alignSelf: "center" },
 });
