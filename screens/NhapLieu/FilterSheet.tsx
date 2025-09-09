@@ -7,8 +7,8 @@ export default function FilterSheet() {
     <SafeAreaView style={{ flex:1, padding:16 }}>
       <Text style={{ fontSize:18, fontWeight:'700' }}>Bộ lọc nhanh</Text>
       <View style={{ height:80, justifyContent:'center' }}>
-        <Text>Khoảng giá: {min} - {max} VND (demo)</Text>
-        {/* Bạn thay Slider phù hợp hoặc dùng @react-native-community/slider */}
+        <Text>Khoảng giá: {min} - {max} VND </Text>
+        
       </View>
     </SafeAreaView>
   );

@@ -15,7 +15,7 @@ export default function ProductCard({ item, onPress }:{ item: Plant; onPress?: (
 }
 const s = StyleSheet.create({
   card: { backgroundColor: colors.card, borderRadius: 12, padding: 10, gap: 6, elevation: 2 },
-  img: { width: '100%', height: 120, borderRadius: 10 },
+  img: { width: '100%', height: 150, borderRadius: 10 },
   name: { fontWeight: '600' },
   price: { color: colors.primary, fontWeight: '700' },
 });

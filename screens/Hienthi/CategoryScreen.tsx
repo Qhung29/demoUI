@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, Pressable } from 'react-native';
+import { View, Text, SafeAreaView, Pressable,ScrollView } from 'react-native';
 import { PLANTS } from '../../data/plants';
 import ProductList from '../../components/lists/ProductList';
 import { useNavigation } from '@react-navigation/native';
+
 
 const CATS = ['Tất cả','Cây để bàn','Cây nội thất','Xương rồng','Sen đá'] as const;
 
@@ -13,6 +14,7 @@ export default function CategoryScreen() {
 
   return (
     <SafeAreaView style={{ flex:1 }}>
+      <ScrollView contentContainerStyle={{ padding: 16,margin:10 }} >
       <View style={{ flexDirection:'row', flexWrap:'wrap', gap:8, padding:12 }}>
         {CATS.map(c => (
           <Pressable key={c} onPress={()=>setCat(c)}
@@ -22,6 +24,7 @@ export default function CategoryScreen() {
         ))}
       </View>
       <ProductList data={data} onPressItem={(id)=>nav.navigate('Product', { screen:'ProductDetailScreen', params:{ productId:id }})} />
+    </ScrollView>
     </SafeAreaView>
   );
 }
