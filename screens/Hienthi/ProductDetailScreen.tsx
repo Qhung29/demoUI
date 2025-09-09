@@ -4,6 +4,10 @@ import { PLANTS } from "../../data/plants";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { vnd } from "../../utils/format";
 
+import { useAppStore } from '../../hooks/useCart';
+
+type Review = { id: string; user: string; rating: number; comment: string; date: string };
+
 export default function ProductDetailScreen() {
   const route = useRoute<any>();
   const nav = useNavigation<any>();
@@ -43,4 +47,36 @@ export default function ProductDetailScreen() {
       </Pressable>
     </ScrollView>
   );
+}
+
+/* ---------- các helper UI nhỏ ngay trong file ---------- */
+function Star({ filled, size = 16 }: { filled: boolean; size?: number }) {
+  return <Text style={{ fontSize: size, color: filled ? '#f59e0b' : '#d1d5db' }}>★</Text>;
+}
+
+function StarRating({ value, size = 16 }: { value: number; size?: number }) {
+  const full = Math.round(value);
+  return (
+    <View style={{ flexDirection: 'row', gap: 2 }}>
+      {[1, 2, 3, 4, 5].map((i) => <Star key={i} filled={i <= full} size={size} />)}
+    </View>
+  );
+}
+
+function InteractiveStars({ value, onChange }: { value: number; onChange: (n: number) => void }) {
+  return (
+    <View style={{ flexDirection: 'row', gap: 8 }}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <Pressable key={i} onPress={() => onChange(i)}>
+          <Star filled={i <= value} size={20} />
+        </Pressable>
+      ))}
+    </View>
+  );
+}
+
+function formatDate(s: string) {
+  // s: YYYY-MM-DD
+  const [y, m, d] = s.split('-');
+  return `${d}/${m}/${y}`;
 }

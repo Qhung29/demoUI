@@ -12,6 +12,7 @@ import ProfileScreen from "../screens/Hienthi/ProfileScreen";
 const Tab = createBottomTabNavigator();
 
 export default function MainTabs() {
+    const cartCount = useAppStore((s) => s.count());
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
