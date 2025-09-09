@@ -28,7 +28,7 @@ export default function HomeGridLayout() {
       <View style={{ paddingHorizontal: 16, paddingTop: 20, paddingBottom: 8, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
         <Image source={LOGO} style={{ width: 50, height: 50, borderRadius: 8 }} />
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18, fontWeight: '800' }}>Cửa hàng Cây Xanh</Text>
+          <Text style={{ fontSize: 18, fontWeight: '800' }}>GreenShop</Text>
           <Text style={{ color: '#6b7280', fontSize: 12 }}>Ưu đãi hôm nay cho bạn</Text>
         </View>
   <Pressable
@@ -55,25 +55,7 @@ export default function HomeGridLayout() {
         <SearchBar value={q} onChange={setQ} placeholder="Tìm cây, danh mục..." />
       </View>
 
-      {/* Chips danh mục
-      <View style={{ flexDirection: 'row', flexWrap: 'no-wrap', gap: 8, paddingHorizontal: 16, paddingTop: 10 }}>
-        {CATS.map((c) => (
-          <Pressable
-            key={c}
-            onPress={() => setCat(c)}
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 14,
-              borderRadius: 20,
-              backgroundColor: c === cat ? '#2e7d32' : '#eef2f4',
-              borderWidth: 1,
-              borderColor: c === cat ? '#2e7d32' : '#e5e7eb',
-            }}
-          >
-            <Text style={{ color: c === cat ? '#fff' : '#111', fontWeight: c === cat ? '700' : '500' }}>{c}</Text>
-          </Pressable>
-        ))}
-      </View> */}
+      
 
       <View style={{ height: 6 }} />
     </>

@@ -8,6 +8,7 @@ import CategoryScreen from "../screens/Hienthi/CategoryScreen";
 import CartSummaryScreen from "../screens/Hienthi/CartSummaryScreen";
 import ShopInfoScreen from "../screens/Hienthi/ShopInfoScreen";
 import ProfileScreen from "../screens/Hienthi/ProfileScreen";
+import { useAppStore } from '../hooks/useCart';
 
 const Tab = createBottomTabNavigator();
 
