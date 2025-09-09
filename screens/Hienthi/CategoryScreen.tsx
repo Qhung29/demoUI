@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { View, Text, FlatList, RefreshControl } from 'react-native';
+import { View, Text, FlatList, RefreshControl,ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
@@ -70,7 +70,8 @@ export default function CategoryScreen() {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f6f7f9' }} edges={['top','left','right']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f6f7f9', paddingTop:20 }} edges={['top','left','right']}>
+      
       <FlatList
         data={data}
         keyExtractor={(it) => it.id}
@@ -90,6 +91,7 @@ export default function CategoryScreen() {
           </View>
         )}
       />
+  
     </SafeAreaView>
   );
 }
