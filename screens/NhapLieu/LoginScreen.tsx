@@ -33,7 +33,7 @@ export default function LoginScreen() {
           {/* ====== LOGO TRÊN ĐẦU + TIÊU ĐỀ ====== */}
           <View style={s.top}>
             <Image
-              source={require('../../assets/logotree2-Photoroom.png')}
+              source={require('../../assets/logo.png')}
               style={s.brandLogo}
               resizeMode="contain"
             />

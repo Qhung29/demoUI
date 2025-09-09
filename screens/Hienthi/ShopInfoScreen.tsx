@@ -8,6 +8,7 @@ import {
   Pressable,
   Linking,
   Alert,
+  Image
 } from "react-native";
 
 // ✅ Dùng SafeAreaView & hook từ react-native-safe-area-context
@@ -39,7 +40,7 @@ export default function ShopInfoScreen() {
     Alert.alert("Giới thiệu", "Chuyên cây nội thất, xương rồng, sen đá…");
 
   return (
-    // ✅ edges chỉ có tác dụng với SafeAreaView của safe-area-context
+   
     <SafeAreaView
       style={[s.container, { paddingTop: insets.top }]}
       edges={["top", "left", "right"]}
@@ -47,7 +48,7 @@ export default function ShopInfoScreen() {
       <ScrollView
         contentContainerStyle={[
           s.content,
-          { paddingBottom: 32 + insets.bottom }, // chừa đáy theo máy/tab bar
+          { paddingBottom: 32 + insets.bottom }, 
         ]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -56,6 +57,7 @@ export default function ShopInfoScreen() {
         <View style={s.header}>
           <View style={s.logoCircle}>
             <Ionicons name="leaf" size={28} color="#2e7d32" />
+     
           </View>
           <Text style={s.title}>{SHOP_NAME}</Text>
           <Text style={s.caption}>Chuyên cây nội thất, xương rồng, sen đá…</Text>
