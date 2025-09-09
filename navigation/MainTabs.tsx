@@ -1,16 +1,44 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeGridLayout from '../screens/Layout/HomeGridLayout';
-import CategoryScreen from '../screens/Hienthi/CategoryScreen';
-import CartSummaryScreen from '../screens/Hienthi/CartSummaryScreen';
-import ShopInfoScreen from '../screens/Hienthi/ShopInfoScreen';
-import PromotionsScreen from '../screens/Hienthi/PromotionsScreen';
+// navigation/MainTabs.tsx
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialIcons } from "@expo/vector-icons";
+
+import HomeGridLayout from "../screens/Layout/HomeGridLayout";
+import CategoryScreen from "../screens/Hienthi/CategoryScreen";
+import CartSummaryScreen from "../screens/Hienthi/CartSummaryScreen";
+import ShopInfoScreen from "../screens/Hienthi/ShopInfoScreen";
+import PromotionsScreen from "../screens/Hienthi/PromotionsScreen";
 
 const Tab = createBottomTabNavigator();
 
 export default function MainTabs() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: "#16a34a",  // xanh lá khi chọn
+        tabBarInactiveTintColor: "#6b7280", // xám khi chưa chọn
+        tabBarStyle: { height: 60, paddingBottom: 6, paddingTop: 6 },
+
+        tabBarIcon: ({ color, size }) => {
+          let iconName: keyof typeof MaterialIcons.glyphMap = "home";
+
+          if (route.name === "Trang chủ") {
+            iconName = "home";
+          } else if (route.name === "Danh mục") {
+            iconName = "category";
+          } else if (route.name === "Khuyến mãi") {
+            iconName = "local-offer";
+          } else if (route.name === "Giỏ hàng") {
+            iconName = "shopping-cart";
+          } else if (route.name === "Cửa hàng") {
+            iconName = "store";
+          }
+
+          return <MaterialIcons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
       <Tab.Screen name="Trang chủ" component={HomeGridLayout} />
       <Tab.Screen name="Danh mục" component={CategoryScreen} />
       <Tab.Screen name="Khuyến mãi" component={PromotionsScreen} />
